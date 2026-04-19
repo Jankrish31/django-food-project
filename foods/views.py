@@ -10,6 +10,10 @@ from django.conf import settings
 from datetime import datetime
 import pytz
 
+
+def home(request):
+    return render(request, "home.html")
+
 # Create your views here.
 def foodDetails(request,id=0):
     foodsitems = FoodItems.objects.get(id=id)

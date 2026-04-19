@@ -1,16 +1,16 @@
 from django.urls import path
-from learnapp import views
+from . import views
 
 urlpatterns = [
 
-   path('',views.registration,name="register"),
-    path('login',views.user_login,name="login"),
-    path('home',views.home,name="home"),
-    path('logout',views.user_logout,name='logout'),
-    path('profile',views.userprofile,name='profile'),
-    path('update',views.userupdate,name='update'),
-    path('AllFoods',views.AllFoods,name='AllFoods'),
-    path('addnewfood',views.addnewfood,name='addnewfood'),
-    path('cart', views.Cart, name='cart'),
-
+    path('', views.home, name='home'),  
+    path('<int:id>/', views.foodDetails, name='foodDetails'),
+    path('add-cart/<int:id>/', views.add_cart, name='add_cart'),
+    path('cart/', views.cart, name='cart'),
+    path("customize/<int:id>/", views.customize, name="customize"),
+    path('cart/delete/<int:food_id>/', views.delete_cart, name='delete_cart'),
+    path('order/', views.order_food, name='order'), 
+    path('payment/', views.payment, name='payment'),
+    path('payment-success/', views.payment_success, name='payment_success'),
+    path('bill/', views.billtemplate, name='billtemplate'),
 ]
