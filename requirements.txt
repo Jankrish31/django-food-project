@@ -8,3 +8,4 @@ djangorestframework
 mysqlclient
 psycopg2-binary
 requests
+pytz
