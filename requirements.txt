@@ -9,3 +9,6 @@ mysqlclient
 psycopg2-binary
 requests
 pytz
+cloudinary
+django-cloudinary-storage
+Pillow

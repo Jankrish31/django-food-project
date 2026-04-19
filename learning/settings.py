@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-8qix(ok@1trgt&ze44siy=x3rn7s2y+$(5gvh^#@^yeg-_vmrr'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django_recaptcha',
     'foods'
 ]
+
 CRISPY_TEMPLATE_PACK='bootstrap5'
 CRISPY_ALLOWED_TEMPLATE_PACK='bootstrap5'
 
@@ -165,7 +166,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'janakrishnamoorthisrinivasan@gmail.com'
-EMAIL_HOST_PASSWORD = 'rluo bucv otzs msge'
+# EMAIL_HOST_PASSWORD = 'rluo bucv otzs msge'
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
