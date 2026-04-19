@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+/* Page Background */
+body {
+    background: linear-gradient(to right, #e3f790, #a4cce8);
+}
+
+/* Heading */
+h2 {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Cart Card */
+.card {
+    border-radius: 15px;
+    border: none;
+    background: linear-gradient(135deg, #88e6e6, #abdfc4);
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 12px 25px rgba(0,0,0,0.2);
+}
+
+/* Image */
+.card img {
+    border-radius: 50%;
+    border: 3px solid #161718;
+    object-fit: cover;
+}
+
+/* Text */
+p {
+    margin: 5px 0;
+    font-size: 15px;
+}
+
+/* Highlight labels */
+b {
+    color: #131414;
+}
+
+/* Delete Button */
+.btn-warning {
+    border-radius: 20px;
+    padding: 5px 15px;
+    transition: 0.3s;
+}
+
+.btn-warning:hover {
+    background-color: #ff9800;
+    color: white;
+}
+
+/* Total Section */
+.text-right h4 {
+    color: #28a745;
+    font-weight: bold;
+}
+
+/* Order Button */
+.btn-success {
+    border-radius: 25px;
+    padding: 10px 25px;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Empty Cart */
+.text-center {
+    font-size: 18px;
+    color: #666;
+}
+</style>
+
+<div class="container mt-4">
+  <h2>Cart Items</h2>
+  <hr>
+
+{% if foodsitems %}
+{% for item in foodsitems %} <div class="card mb-3 p-3"> <div class="row align-items-center">
+
+      <div class="col-md-4 text-center">
+        {% if item.image %}
+          <img src="{{ item.image }}" width="150" height="150">
+        {% else %}
+          <p>No Image</p>
+        {% endif %}
+      </div>
+
+      <div class="col-md-8">
+        <p><b>Food:</b> {{ item.foodname }}</p>
+        <p><b>Price:</b> ₹{{ item.price }}</p>
+        <p><b>Quantity:</b> {{ item.quantity }}</p>
+        <p><b>Description:</b> {{ item.description|default:"No description" }}</p>
+
+        {% if item.base %}
+          <p><b>Base:</b> {{ item.base }}</p>
+        {% endif %}
+        {% if item.size %}
+          <p><b>Size:</b> {{ item.size }}</p>
+        {% endif %}
+        {% if item.toppings %}
+          <p><b>Toppings:</b> {{ item.toppings }}</p>
+        {% endif %}
+        {% if item.sauces %}
+          <p><b>Sauces:</b> {{ item.sauces }}</p>
+        {% endif %}
+
+        <a href="{% url 'delete_cart' item.food_id %}" class="btn btn-warning btn-sm"
+           onclick="return confirm('Delete this item?');">DELETE</a>
+      </div>
+
+    </div>
+  </div>
+{% endfor %}
+
+<div class="text-right mt-3">
+  <h4>Total Amount: ₹{{ total_price }}</h4>
+</div>
+
+<div class="text-center mt-4">
+  <a href="{% url 'order' %}" class="btn btn-success btn-lg">ORDER MY FOOD</a>
+</div>
+
+{% else %} <p class="text-center">Your cart is empty.</p>
+{% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+  <h2>Order Confirmation</h2>
+  <p><b>Total Items:</b> {{ total_items }}</p>
+  <hr>
+
+  {% for item in cart_items %}
+    <div class="card mb-3 p-3">
+      <div class="row align-items-center">
+
+        <div class="col-md-3 text-center">
+          {% if item.image %}
+            <img src="{{ item.image }}" class="rounded-circle" width="120" height="120">
+          {% else %}
+            <p>No Image</p>
+          {% endif %}
+        </div>
+
+        <div class="col-md-9">
+          <p><b>Food:</b> {{ item.foodname }}</p>
+          <p><b>Price:</b> ₹{{ item.price }}</p>
+
+          <label><b>Quantity:</b></label>
+          <input type="number"
+                 value="{{ item.quantity }}"
+                 min="1"
+                 class="form-control w-25 qty-input"
+                 data-price="{{ item.price }}"
+                 oninput="calculateTotals()">
+
+          <p><b>Item Total:</b> ₹<span class="item-total">0</span></p>
+
+          {% if item.base %}<p><b>Base:</b> {{ item.base }}</p>{% endif %}
+          {% if item.size %}<p><b>Size:</b> {{ item.size }}</p>{% endif %}
+          {% if item.toppings %}<p><b>Toppings:</b> {{ item.toppings }}</p>{% endif %}
+          {% if item.sauces %}<p><b>Sauces:</b> {{ item.sauces }}</p>{% endif %}
+        </div>
+
+      </div>
+    </div>
+  {% endfor %}
+
+  <hr>
+  <h3 class="text-end">Total Price: ₹<span id="overallTotal">0</span></h3>
+
+  <div class="text-center mt-4">
+    <a href="{% url 'payment' %}" class="btn btn-primary btn-lg">CONFIRM ORDER</a>
+  </div>
+</div>
+
+<script>
+function calculateTotals() {
+  let overallTotal = 0;
+
+  document.querySelectorAll('.qty-input').forEach(input => {
+    const price = Number(input.dataset.price);
+    const qty = Number(input.value) || 1;
+
+    const itemTotal = price * qty;
+
+    input.closest('.col-md-9')
+         .querySelector('.item-total')
+         .innerText = itemTotal;
+
+    overallTotal += itemTotal;
+  });
+
+  document.getElementById('overallTotal').innerText = overallTotal;
+}
+
+window.onload = calculateTotals;
+</script>
+
+{% endblock %}

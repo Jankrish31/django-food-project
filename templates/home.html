@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* Background */
+body {
+    background: linear-gradient(to right, #53c2e1, #74e4ea);
+}
+
+/* Jumbotron */
+.jumbotron {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Banner Image */
+.jumbotron img {
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+/* Title */
+h1 {
+    font-weight: bold;
+    color: #333;
+    margin-top: 15px;
+}
+
+/* Section Title */
+h5 {
+    margin-top: 20px;
+    font-weight: 600;
+    color: #555;
+}
+
+/* Food Card */
+.card {
+    border: none;
+    border-radius: 12px;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+}
+
+/* Food Image */
+.card img {
+    height: 90px;
+    width: 90px;
+    object-fit: cover;
+    margin: auto;
+    border-radius: 10px;
+}
+
+/* Food Name */
+a {
+    display: block;
+    text-align: center;
+    margin-top: 8px;
+    font-weight: 500;
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Grid spacing */
+.col-md-2 {
+    margin-bottom: 15px;
+}
+
+/* Card Background Color */
+.card {
+    background: linear-gradient(135deg, #e9d09c, #cb7e8a);
+    border-radius: 12px;
+    border: none;
+    transition: 0.3s;
+}
+
+/* Hover effect */
+.card:hover {
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+}
+
+/* Image styling */
+.card img {
+    height: 90px;
+    width: 90px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: auto;
+}
+</style>
+
+<div class="container">
+    <div class="jumbotron">
+
+
+    <div class="card card-body">
+        <img src="{% static 'images/backgroundimg.webp' %}" alt="" height="300px" width="1250px">
+    </div>
+
+    <h1 align="center">Welcome to Tasty Kitchen 😋</h1>
+    
+    <br>
+
+    <h5>Top Rated Food</h5>
+
+    <div class="row">
+        {% for i in allfoods %}
+            {% if i.rating >= 4 %}
+            <div class="col-md-2">
+                <div class="card card-body">
+
+                    {% if i.food_img %}
+                        <img src="{{ i.food_img.url }}" alt="no-img">
+                    {% else %}
+                        <img src="{% static 'images/backgroundimg.webp' %}" alt="">
+                    {% endif %}
+
+                </div>
+
+                <a href="{{i.id }}">{{ i.foodname }}</a>
+              
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+ </div>
+
+
+</div>
+
+{% endblock %}

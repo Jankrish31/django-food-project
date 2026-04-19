@@ -1,0 +1,145 @@
+
+
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+  body {
+    background: #eef1f5;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .upi-wrapper {
+    max-width: 400px;
+    margin: 40px auto;
+  }
+
+  .upi-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+
+  /* Gradient Header */
+  .upi-header {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    text-align: center;
+    padding: 25px 15px;
+  }
+
+  .upi-header h3 {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .upi-header p {
+    font-size: 13px;
+    opacity: 0.9;
+  }
+
+  /* Amount Section */
+  .amount-box {
+    text-align: center;
+    padding: 25px 15px;
+  }
+
+  .amount-box h1 {
+    font-size: 40px;
+    margin: 5px 0;
+    color: #222;
+  }
+
+  .payee {
+    font-size: 14px;
+    color: #666;
+  }
+
+  /* UPI Details */
+  .upi-details {
+    margin: 15px;
+    background: #f5f7fb;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 14px;
+    color: #444;
+  }
+
+  /* Pay Button */
+  .pay-btn {
+    width: calc(100% - 30px);
+    margin: 15px;
+    padding: 14px;
+    border-radius: 10px;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    transition: 0.2s;
+  }
+
+  .pay-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+  }
+
+  .secure {
+    text-align: center;
+    font-size: 12px;
+    color: #777;
+    padding-bottom: 15px;
+  }
+
+  .icon {
+    font-size: 28px;
+    margin-bottom: 5px;
+  }
+</style>
+
+<div class="upi-wrapper">
+
+  <div class="upi-card">
+
+    <!-- Header -->
+    <div class="upi-header">
+      <div class="icon">💸</div>
+      <h3>UPI Payment</h3>
+      <p>Fast • Secure • Instant</p>
+    </div>
+
+    <!-- Amount -->
+    <div class="amount-box">
+      <div class="payee">Paying to Food Order</div>
+      <h1>₹{{ total_amount }}</h1>
+    </div>
+
+    <!-- UPI Info -->
+    <div class="upi-details">
+      UPI ID: demo@upi <br>
+      Method: UPI AutoPay <br>
+      Bank: Demo Bank
+    </div>
+
+    <!-- Pay Button -->
+    <form method="POST" action="{% url 'payment_success' %}">
+      {% csrf_token %}
+      <input type="hidden" name="amount" value="{{ total_amount }}">
+
+      <button type="submit" class="pay-btn">
+        PAY ₹{{ total_amount }}
+      </button>
+    </form>
+
+    <div class="secure">
+      🔒 Secured by UPI
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}
+
+

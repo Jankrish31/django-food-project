@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+  body {
+    background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .success-wrapper {
+    height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .success-card {
+    width: 420px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  }
+
+  /* Big Success Tick */
+  .check-circle {
+    width: 90px;
+    height: 90px;
+    background: #4CAF50;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    font-size: 45px;
+    color: white;
+    box-shadow: 0 4px 15px rgba(76,175,80,0.4);
+    animation: pop 0.4s ease;
+  }
+
+  @keyframes pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .title {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #2e7d32;
+  }
+
+  .amount {
+    font-size: 38px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #222;
+  }
+
+  .msg {
+    color: #666;
+    font-size: 14px;
+  }
+
+  .btn-bill {
+    width: 100%;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    background: #4CAF50;
+    border: none;
+    color: white;
+    margin-top: 20px;
+    transition: 0.2s;
+  }
+
+  .btn-bill:hover {
+    background: #43a047;
+    transform: translateY(-1px);
+  }
+
+  .small {
+    font-size: 12px;
+    color: #888;
+    margin-top: 12px;
+  }
+</style>
+
+<div class="success-wrapper">
+
+  <div class="success-card">
+
+    <div class="check-circle">✔</div>
+
+    <div class="title">Payment Successful</div>
+
+    <div class="amount">₹{{ total_amount }}</div>
+
+    <p class="msg">Your payment has been processed successfully 🎉</p>
+
+    <a href="{% url 'billtemplate' %}" class="btn btn-bill">
+      View Bill
+    </a>
+
+    <div class="small">
+      Transaction completed securely 🔒
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}
+

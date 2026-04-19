@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+/* Page Background */
+body {
+    background: linear-gradient(to right, #21bef3, #21e77a);
+}
+
+/* Category Buttons */
+.btn-outline-primary,
+.btn-outline-secondary {
+    border-radius: 20px;
+    padding: 6px 15px;
+    margin: 3px;
+    transition: 0.3s;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #ffc107;
+    color: black;
+    border-color: #ffc107;
+}
+
+/* Card Design */
+.card {
+    border-radius: 15px;
+    border: none;
+    background: #ffffff;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Image Styling */
+.card img {
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Text Styling */
+h5 {
+    font-weight: bold;
+    color: #333;
+}
+
+p {
+    margin: 5px 0;
+}
+
+/* Price */
+p:nth-child(3) {
+    color: #28a745;
+    font-weight: bold;
+}
+
+/* Rating */
+p:nth-child(4) {
+    color: #ff9800;
+}
+
+/* Category Text */
+strong {
+    color: #007bff;
+}
+</style>
+
+<div class="container">
+
+<!-- CATEGORY FILTER BAR -->
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+<div>
+    <a href="{% url 'AllFoods' %}" class="btn btn-outline-primary">ALL</a> |
+
+    <a href="{% url 'AllFoods' %}?cat=BRIYANI" class="btn btn-outline-secondary">Briayni</a> |
+    <a href="{% url 'AllFoods' %}?cat=PAROOTA" class="btn btn-outline-secondary">Paroota</a> |
+    <a href="{% url 'AllFoods' %}?cat=CHICKENRICE" class="btn btn-outline-secondary">Chickenrice</a> |
+    <a href="{% url 'AllFoods' %}?cat=CHICKENNOODLES" class="btn btn-outline-secondary">ChickenNoodles</a> |
+    <a href="{% url 'AllFoods' %}?cat=CHAPPAATI" class="btn btn-outline-secondary">Chappaati</a> |
+    <a href="{% url 'AllFoods' %}?cat=DOSA" class="btn btn-outline-secondary">Dosa</a> |
+    <a href="{% url 'AllFoods' %}?cat=IDLY" class="btn btn-outline-secondary">Idly</a> |
+    <a href="{% url 'AllFoods' %}?cat=POORI" class="btn btn-outline-secondary">Poori</a> |
+    <a href="{% url 'AllFoods' %}?cat=PONGAL" class="btn btn-outline-secondary">Pongal</a> |
+    <a href="{% url 'AllFoods' %}?cat=IDIYAPPAM" class="btn btn-outline-secondary">Idiyappam</a> |
+    <a href="{% url 'AllFoods' %}?cat=KICHIDI" class="btn btn-outline-secondary">Khichidi</a> |
+    <a href="{% url 'AllFoods' %}?cat=UPUMA" class="btn btn-outline-secondary">Upuma</a> |
+</div>
+
+<div>
+    {% if user_type == "VENDER" %}
+    <a href="{% url 'addnewfood' %}" class="btn btn-success">➕ Add Foods</a>
+    {% endif %}
+</div>
+
+</div>
+
+<hr>
+
+<!-- FOOD LIST -->
+
+<div class="row">
+<h2>FOODS</h2>
+
+{% for i in fooditems %} <div class="col-md-4"> <div class="card card-body text-center">
+
+
+        {% if i.food_img %}
+            <img src="{{ i.food_img.url }}" class="img-fluid mb-2">
+        {% else %}
+            <img src="{% static 'images/backgroundimg.webp' %}" class="img-fluid mb-2">
+        {% endif %}
+
+        <h5>{{ i.foodname }}</h5>
+        <p>₹ {{ i.price }}</p>
+        <p>⭐ {{ i.rating }}</p>
+        <p><strong>{{ i.catogery }}</strong></p>
+
+    </div>
+    <br>
+</div>
+
+
+{% empty %} <h4>No foods found</h4>
+{% endfor %}
+
+</div>
+</div>
+
+{% endblock %}

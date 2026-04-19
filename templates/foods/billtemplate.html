@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Receipt</title>
+</head>
+<body style="font-family: Arial; background:#f2f2f2; padding:20px;">
+
+<div style="max-width:420px; margin:auto; background:white; border-radius:10px; padding:20px;">
+
+    <h2 style="text-align:center;">Order Receipt</h2>
+    <p style="text-align:center; color:gray;">Fast Delivery • Fresh Food • Happy Customer</p>
+
+    <hr>
+
+    <p><b>Order ID:</b> {{ order_id }}</p>
+    <p><b>Date:</b> {{ order_date }}</p>
+
+    <hr>
+
+    {% for item in items %}
+    <div style="display:flex; align-items:center; margin-bottom:15px;">
+
+        {% if item.cid %}
+    <img src="cid:{{ item.cid }}" width="80" height="60" style="border-radius:8px;">
+{% else %}
+    <img src="https://via.placeholder.com/80" width="80">
+{% endif %}
+
+
+        <div>
+            <b>{{ item.name }}</b><br>
+            Qty: {{ item.quantity }}<br>
+            ₹{{ item.price }}
+        </div>
+
+    </div>
+    {% endfor %}
+
+    <hr>
+
+    <p><b>Total Items:</b> {{ total_items }}</p>
+    <p><b>Total Amount:</b> ₹{{ total_amount }}</p>
+
+    <h3 style="text-align:center; color:green;">❤️ Thank you for ordering with us</h3>
+
+</div>
+
+</body>
+</html>

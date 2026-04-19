@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+/* Background */
+body {
+    background: linear-gradient(to right, #46b5d1, #33c2ac);
+}
+
+/* Profile Container */
+.jumbotron {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Card */
+.card {
+    border: none;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+/* Profile Image */
+img {
+    border-radius: 12px;
+    border: 3px solid #839089;
+    object-fit: cover;
+}
+
+/* Headings */
+h1 {
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+h6 {
+    margin: 8px 0;
+    font-size: 16px;
+    color: #444;
+}
+
+/* Label Highlight */
+h6 span {
+    font-weight: bold;
+    color: #0f1111;
+}
+
+/* Button Styling */
+button {
+    border: none;
+    background: none;
+}
+
+.btn-primary {
+    border-radius: 25px;
+    padding: 8px 20px;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #216bb9;
+    transform: scale(1.05);
+}
+
+/* Layout spacing */
+.row {
+    align-items: center;
+}
+
+.card {
+    background: linear-gradient(135deg, #53d2e2, #e3f2fd);
+    border-radius: 15px;
+    border: none;
+    padding: 20px;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.15);
+    transition: 0.3s;
+}
+
+/* Hover effect */
+.card:hover {
+    background: linear-gradient(135deg, #bbdefb, #d7f58c);
+    transform: translateY(-5px);
+}
+
+/* Left image section */
+.col-md-6 img {
+    border-radius: 12px;   
+    border: 3px solid #161718;
+    object-fit: cover;
+}
+
+/* Text styling */
+h6 {
+    margin: 8px 0;
+    color: #444;
+}
+
+h6 span {
+    color: #010f02;
+    font-weight: bold;
+}
+
+/* Button */
+.btn-primary {
+    border-radius: 25px;
+    padding: 8px 20px;
+}
+</style>
+
+<div class="container mt-4">
+     <div class="jumbotron">
+        <h1>{{user.username}}'s Profile</h1>
+
+
+    <div class="card card-body">
+      <div class="row">
+
+        <!-- LEFT SIDE -->
+        <div class="col-md-6 text-center">
+           <h6><span>Profile Picture</span></h6>
+
+           {% if user.userdetails.userpic %}
+             <img src="{{ user.userdetails.userpic.url }}" height="200px" width="150px">
+           {% else %}
+             <p>No Image</p>
+           {% endif %}
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="col-md-6">
+           <h6><span>Email:</span> {{user.email}}</h6>
+           <h6><span>Phone:</span> {{user.userdetails.phone}}</h6>
+           <h6><span>Address:</span> {{user.userdetails.address}}</h6>
+           <h6><span>Street:</span> {{user.userdetails.street}}</h6>
+           <h6><span>City:</span> {{user.userdetails.city}}</h6>
+           <h6><span>Zipcode:</span> {{user.userdetails.zipcode}}</h6>
+
+           <br>
+
+           <a href="{% url 'update' %}" class="btn btn-primary">Update Profile</a>
+        </div>
+
+     </div>
+    </div>
+ </div>
+
+</div>
+
+{% endblock %}

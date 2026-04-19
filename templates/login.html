@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+/* Background */
+body {
+    background: linear-gradient(to right, #efb154, #764ba2);
+}
+
+/* Center the box */
+
+
+/* Login box */
+.jumbotron {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+    width: 400px;
+}
+
+/* Card */
+.card {
+    border: none;
+    background: transparent;
+}
+
+/* Heading */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    color: #444;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+}
+
+/* Button */
+.btn-success {
+    width: 100%;
+    border-radius: 25px;
+    padding: 10px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+</style>
+
+<div class="container">
+    <div class="jumbotron">
+        <div class="card card-body">
+        <h1>Login Here...!</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label for="username">Username:</label>
+            <input type="text" name="username" placeholder="Enter username">
+
+            <br><br>
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" placeholder="Enter your password">
+
+            <br><br>
+
+            <input type="submit" class="btn btn-success" value="Login">
+        </form>
+
+    </div>
+</div>  
+
+</div>
+
+{% endblock %}

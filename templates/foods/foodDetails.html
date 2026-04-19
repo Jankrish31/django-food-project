@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+/* Background */
+body {
+    background: linear-gradient(to right, #6fb9ef, #92d7e8);
+}
+
+/* Container spacing */
+.container {
+    margin-top: 40px;
+}
+
+/* Jumbotron */
+.jumbotron {
+    background: rgba(246, 244, 246, 0.95);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Card */
+.card-card {
+    background: linear-gradient(135deg, #6de129, #b7ec27);
+    border-radius: 15px;    
+    padding: 20px;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.card-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 12px 25px rgba(0,0,0,0.2);
+}
+
+/* Image */
+.card-card img {
+    border-radius: 50%;
+    border: 3px solid #111212;
+    object-fit: cover;
+}
+
+/* Heading */
+h3 {
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Text */
+p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+/* Label highlight */
+b {
+    color: #16181a;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 25px;
+    padding: 8px 18px;
+    margin-right: 10px;
+    transition: 0.3s;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+</style>
+
+<div class="container">
+    <div class="jumbotron">
+
+    <h3>{{foodsitems.foodname}}</h3>
+    <br>
+
+    <div class="card card-card">
+        <br>
+
+        <div class="row">
+
+            <!-- IMAGE -->
+            <div class="col-md-6 text-center">
+                {% if foodsitems.food_img %}
+                    <img src="{{ foodsitems.food_img.url }}" width="150" height="150">
+                {% else %}
+                    <p>No Image</p>
+                {% endif %}
+            </div>
+
+            <!-- DETAILS -->
+            <div class="col-md-6">
+                <p><b>Foodname:</b> {{ foodsitems.foodname }}</p><br>
+                <p><b>Price:</b> ₹{{ foodsitems.price }}</p><br>
+                <p><b>Ratings:</b> ⭐ {{ foodsitems.rating }}</p>
+                <p><b>Description:</b> {{ foodsitems.description }}</p>
+
+                <br>
+
+                <a href="{% url 'add_cart' foodsitems.id %}" class="btn btn-success">
+                    Add to Cart
+                </a>
+
+                <a href="{% url 'customize' foodsitems.id %}" class="btn btn-primary">
+                    Customize
+                </a>
+            </div>
+
+        </div>
+
+        <br>
+    </div>
+
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Receipt</title>
+</head>
+
+<body style="font-family: Arial; background:#fba5a5; padding:20px;">
+
+<div style="max-width:420px; margin:auto; background:white; border-radius:10px; padding:20px; box-shadow:0 0 10px rgba(0,0,0,0.1);">
+
+    <h2 style="text-align:center;">🍽 Order Receipt</h2>
+    <p style="text-align:center; color:gray;">Fast Delivery • Fresh Food • Happy Customer</p>
+
+    <hr>
+
+    <p><b>Order ID:</b> {{ order_id }}</p>
+
+    <p><b>Date:</b> {{ order_date }}</p>
+
+    <hr>
+
+    <h3 style="margin-bottom:10px;">Food Items</h3>
+
+    {% for item in items %}
+        <div style="display:flex; align-items:center; margin-bottom:15px; gap:10px;">
+
+            {% if item.image %}
+            <img src="{{ item.image }}" width="80" height="60" style="border-radius:8px;">
+            {% else %}
+            <img src="https://via.placeholder.com/80" width="80">
+            {% endif %}
+
+            <div>
+                <b>Food:</b> {{ item.foodname }} <br>
+                <b>Quantity:</b> {{ item.quantity }} <br>
+                <b>Price:</b> ₹{{ item.price }}
+            </div>
+
+        </div>
+        {% endfor %}
+
+    <hr>
+
+    <p><b>Total Items:</b> {{ total_items }}</p>
+    <p><b>Total Amount:</b> ₹{{ total_amount }}</p>
+
+    <h3 style="text-align:center; color:green;">❤️ Thank you for ordering with us</h3>
+
+    <!-- Back Button -->
+    <div style="text-align:center; margin-top:20px;">
+        <a href="/" 
+           style="background:#ff6600; color:white; padding:10px 20px; text-decoration:none; border-radius:5px;">
+           ⬅ Back to Home
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html> 

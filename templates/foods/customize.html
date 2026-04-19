@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customize {{ food.foodname }}</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #b9dba1;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .card {
+            background: #fff;
+            padding: 20px;
+            max-width: 650px;
+            margin: auto;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+
+        .food-img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 6px 0;
+            cursor: pointer;
+        }
+
+        .price {
+            float: right;
+            color: green;
+        }
+
+        .preview-img {
+            display: none;
+            width: 120px;
+            margin: 6px 0 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .total {
+            font-size: 22px;
+            font-weight: bold;
+            color: #e53935;
+            margin-top: 15px;
+            text-align: right;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #ff5722;
+            color: white;
+            border: none;
+            font-size: 17px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background: #e64a19;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Customize Food</h1>
+
+<div class="card">
+
+    <!-- FOOD IMAGE -->
+    <img src="{{ food.food_img.url }}" class="food-img" alt="{{ food.foodname }}">
+
+    <h2>{{ food.foodname }}</h2>
+    <p>{{ food.description }}</p>
+
+    <h3>Base Price: ₹{{ food.price }}</h3>
+
+    <form method="POST" action="{% url 'add_cart' food.id %}">
+
+        {% csrf_token %}
+        <input type="hidden" name="total_price" id="finalPrice">
+
+        <!-- BASE -->
+        <div class="section">
+            <h4>Choose Base</h4>
+            {% for base in bases %}
+            <label>
+                <input type="radio" name="base"
+                       value="{{ base.base_name }}"
+                       >
+                {{ base.base_name }}
+                
+            </label>
+            {% endfor %}
+        </div>
+
+        <!-- SIZE -->
+        <div class="section">
+            <h4>Choose Size</h4>
+            {% for size in sizes %}
+            <label>
+                <input type="radio" name="size"
+                       value="{{ size.size_type }}"
+                       data-price="{{ size.price }}"
+                       onclick="updateTotal()">
+                {{ size.size_type }}
+                <span class="price">₹{{ size.price }}</span>
+            </label>
+            {% endfor %}
+        </div>
+
+        <!-- TOPPINGS -->
+        <div class="section">
+            <h4>Add Toppings</h4>
+            {% for topping in toppings %}
+            <label>
+                <input type="checkbox" name="toppings"
+                       value="{{ topping.name }}"
+                       data-price="{{ topping.price }}"
+                       onclick="toggleImage(this,'topping-img-{{ topping.id }}'); updateTotal();">
+                {{ topping.name }}
+                <span class="price">₹{{ topping.price }}</span>
+            </label>
+
+            <img id="topping-img-{{ topping.id }}"
+                 src="{{ topping.image.url }}"
+                 class="preview-img">
+            {% endfor %}
+        </div>
+
+        <!-- SAUCES -->
+        <div class="section">
+            <h4>Add Sauces</h4>
+            {% for sauce in sauces %}
+            <label>
+                <input type="checkbox" name="sauces"
+                       value="{{ sauce.name }}"
+                       data-price="{{ sauce.price }}"
+                       onclick="toggleImage(this,'sauce-img-{{ sauce.id }}'); updateTotal();">
+                {{ sauce.name }}
+                <span class="price">₹{{ sauce.price }}</span>
+            </label>
+
+            <img id="sauce-img-{{ sauce.id }}"
+                 src="{{ sauce.image.url }}"
+                 class="preview-img">
+            {% endfor %}
+        </div>
+
+        <!-- TOTAL -->
+        <div class="total">
+            Total: ₹<span id="total">{{ food.price }}</span>
+        </div>
+
+        <button type="submit">Add to Cart</button>
+    </form>
+
+</div>
+
+<script>
+function updateTotal() {
+    let total = parseFloat("{{ food.price }}");
+
+    document.querySelectorAll('[data-price]').forEach(el => {
+        if ((el.type === "radio" && el.checked) ||
+            (el.type === "checkbox" && el.checked)) {
+            total += parseFloat(el.dataset.price);
+        }
+    });
+
+    document.getElementById("total").innerText = total.toFixed(2);
+    document.getElementById("finalPrice").value = total.toFixed(2);
+}
+
+function toggleImage(checkbox, imageId) {
+    const img = document.getElementById(imageId);
+    img.style.display = checkbox.checked ? "block" : "none";
+}
+</script>
+
+</body>
+</html>
