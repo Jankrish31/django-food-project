@@ -42,15 +42,15 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'django_recaptcha',
-    'foods'
+    'foods',
 ]
 
 CRISPY_TEMPLATE_PACK='bootstrap5'
 CRISPY_ALLOWED_TEMPLATE_PACK='bootstrap5'
 
 #reptacha
-RECAPTCHA_PUBLIC_KEY = '6LcZCTwsAAAAAFMyo7sfWFn8eUCDU-MaFLQ-HkkN'
-RECAPTCHA_PRIVATE_KEY = '6LcZCTwsAAAAAIkc8cyKgOLweN_ORD1C8L793r_j'
+RECAPTCHA_PUBLIC_KEY = '6LcQCTwsAAAAAGSwClMPyhBItOWaO5c8dssgAh1a'
+RECAPTCHA_PRIVATE_KEY = '6LcQCTwsAAAAALT6XJm8vkj7J1ZtnvXfBzxbnBVh'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
