@@ -95,7 +95,7 @@ p {
 
         {% if registered %}
             <h1>Thankyou for registration....!</h1>
-            <p>Proceed to <a href="#">login</a></p>
+            <p>Proceed to <a href="{% url 'login' %}">login</a></p>
 
         {% else %}
             <h1>Registration Form..!</h1>
